@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Flok's API: Image Search
+  p Allows you to search for images.
+  h2 Search for images like this example:
+  code localhost:3000/api/imagesearch/lolcats%20funny?offset=10
+  h2 Browse recent search queries:
+  code localhost:3000/api/latest/imagesearch/
