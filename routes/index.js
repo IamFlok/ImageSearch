@@ -35,7 +35,6 @@ router.get(url, (req, res, next) => {
         gPath = gUrl + "key=" + gKey + "&cx=" + gCx + "&searchType=image&start=" + offset + "&q=" + val;
       }
 
-
       request(gPath, (error, response, body) => {
         if (error) throw error;
 
