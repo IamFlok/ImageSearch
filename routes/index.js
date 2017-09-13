@@ -26,9 +26,9 @@ router.get(url, (req, res, next) => {
 
   // image loading function uses Google API
   function loadImages(val, offset) {
-      gUrl = "https://www.googleapis.com/customsearch/v1?";
-      gKey =  process.env.API_KEY || "AIzaSyCV_3bYpOB4viJT_XQh-l_xpz0US-fpYyo";
-      gCx = process.env.CX || "007092322407064976168:kp_btmhckyu";
+      gUrl = config.gUrl;
+      gKey =  process.env.API_KEY || config.gKey;
+      gCx = process.env.CX || config.gCx;
       if (offset === undefined) {
         gPath = gUrl + "key=" + gKey + "&cx=" + gCx + "&searchType=image" + "&q=" + val;
       } else {
@@ -66,8 +66,7 @@ router.get(url, (req, res, next) => {
 var queryUrl = "/api/latest/imagesearch";
 
 router.get(queryUrl, (req, res, next) => {
-  mongo.connect(process.env.MONGODB_URI ||
-    'mongodb://fccuser:fCcUsER61@ds131384.mlab.com:31384/freecodecamp',
+  mongo.connect(process.env.MONGODB_URI || config.database,
     (err, db) => {
       if (err) throw err;
       db.collection('imgsearch').find({}, {
@@ -84,8 +83,7 @@ router.get(queryUrl, (req, res, next) => {
 
 // updates a passed object to the database
 function updateToDatabase(obj) {
-  mongo.connect(process.env.MONGODB_URI ||
-    'mongodb://fccuser:fCcUsER61@ds131384.mlab.com:31384/freecodecamp',
+  mongo.connect(process.env.MONGODB_URI || config.database,
     (err, db) => {
      if (err) throw err;
      db.collection('imgsearch').insert(obj, (err, data) => {
